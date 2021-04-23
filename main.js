@@ -1,3 +1,4 @@
+//hide table before the game starts
 function hide() {
   document.getElementById("table").style.display = "table";
 }
@@ -7,18 +8,30 @@ const scorePlayer = document.querySelector(".scorePlayer");
 const scoreComputer = document.querySelector(".scoreComputer");
 const scoreDraw = document.querySelector(".scoreDraw");
 const buttons = document.querySelectorAll("button");
+const main = document.querySelector(".main");
+const logIn = document.querySelector("#logIn");
+const input = document.querySelector("#input");
+const button = document.querySelector("#button");
 let winnerScores = [0, 0, 0];
 
-var maxLength = 10;
-var userName = -1;
+main.style.display = "none";
 
-while (userName == -1 || (userName != null && userName.length > maxLength)) {
-  userName = window.prompt(
-    "Enter your username. \nIt should be no more than " +
-      maxLength + " characters"
-  );
+//let user add a username
+input.addEventListener("keypress", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("button").click();
+    let value = event.target.value;
+    document.getElementById("userName").innerHTML = value;
+  }
+});
+
+function startGame() {
+  main.style.display = "initial";
+  logIn.style.display = "none";
+  let value = input.value;
+  document.getElementById("userName").innerHTML = value;
 }
-document.getElementById("userName").innerHTML = userName;
 
 //add event listeners to buttons
 buttons.forEach((button) => button.addEventListener("click", playGame));
